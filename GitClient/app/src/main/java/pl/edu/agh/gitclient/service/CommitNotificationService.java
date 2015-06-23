@@ -32,6 +32,7 @@ import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
 import pl.edu.agh.gitclient.ui.commit.CommitListActivity;
 import pl.edu.agh.gitclient.ui.config.ConfigActivity;
+import pl.edu.agh.gitclient.ui.config.ConfigActivity_;
 import pl.edu.agh.gitclient.util.DtoConverter;
 
 @EService
@@ -139,7 +140,7 @@ public class CommitNotificationService extends Service {
                         .setContentTitle("My notification")
                         .setContentText("Hello World!");
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, ConfigActivity.class);
+        Intent resultIntent = new Intent(this, ConfigActivity_.class);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -147,7 +148,7 @@ public class CommitNotificationService extends Service {
         // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(ConfigActivity.class);
+        stackBuilder.addParentStack(ConfigActivity_.class);
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
