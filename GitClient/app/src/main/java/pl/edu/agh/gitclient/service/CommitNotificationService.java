@@ -141,9 +141,9 @@ public class CommitNotificationService extends Service {
                 .setSmallIcon(R.drawable.git_logo)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-//                .addAction(R.drawable.icon, "Call", pIntent)
-//                .addAction(R.drawable.icon, "More", pIntent)
-//                .addAction(R.drawable.icon, "And more", pIntent)
+                .addAction(R.drawable.ic_action_about, "Call", pIntent)
+                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
+                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
                 .build();
 
         NotificationManager notificationManager =
