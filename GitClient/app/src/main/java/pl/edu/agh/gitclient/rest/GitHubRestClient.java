@@ -16,7 +16,7 @@ import pl.edu.agh.gitclient.config.Parameters;
         requestFactory = OkHttpFactory.class)
 public interface GitHubRestClient {
 
-    @Get("/{userName}/{repoName}/compare/{sha1}...{sha2}.diff")
-    public String getCommitDiff(String userName, String repoName, String sha1, String sha2);
+    @Get("/{userName}/{repoName}/compare/{sha1}...{sha2}.diff?access_token={accessToken}")
+    public String getCommitDiff(String userName, String repoName, String sha1, String sha2, String accessToken);
 
 }

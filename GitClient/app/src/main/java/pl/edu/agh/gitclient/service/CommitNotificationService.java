@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.dto.CommitDTO;
 import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
@@ -91,7 +92,7 @@ public class CommitNotificationService extends Service {
                 if (observableUserRepos != null) {
                     for (String repoName : observableUserRepos) {
                         try {
-                            CommitDTO[] commitDTOs = mRestClient.getCommits(mObservableUserName, repoName);
+                            CommitDTO[] commitDTOs = mRestClient.getCommits(mObservableUserName, repoName, Parameters.ACCESS_TOKEN);
                             if (commitDTOs != null) {
                                 List<Commit> commits = DtoConverter.convertCommitDTOs(commitDTOs);
                                 if (commits != null && commits.size() > 0) {

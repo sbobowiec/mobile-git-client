@@ -4,8 +4,6 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 

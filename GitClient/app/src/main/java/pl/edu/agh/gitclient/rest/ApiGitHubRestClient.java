@@ -18,10 +18,10 @@ import pl.edu.agh.gitclient.dto.RepositoryDTO;
         requestFactory = OkHttpFactory.class)
 public interface ApiGitHubRestClient {
 
-    @Get("/users/{userName}/repos")
-    public RepositoryDTO[] getRepositories(String userName);
+    @Get("/users/{userName}/repos?access_token={accessToken}")
+    public RepositoryDTO[] getRepositories(String userName, String accessToken);
 
-    @Get("/repos/{userName}/{repoName}/commits")
-    public CommitDTO[] getCommits(String userName, String repoName);
+    @Get("/repos/{userName}/{repoName}/commits?access_token={accessToken}")
+    public CommitDTO[] getCommits(String userName, String repoName, String accessToken);
 
 }

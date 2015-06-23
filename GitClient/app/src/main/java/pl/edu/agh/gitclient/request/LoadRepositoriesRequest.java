@@ -2,6 +2,7 @@ package pl.edu.agh.gitclient.request;
 
 import com.octo.android.robospice.request.SpiceRequest;
 
+import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.dto.RepositoryDTO;
 import pl.edu.agh.gitclient.request.param.LoadRepositoriesRequestParams;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
@@ -19,7 +20,7 @@ public class LoadRepositoriesRequest extends SpiceRequest<RepositoryDTO[]> {
 
     @Override
     public RepositoryDTO[] loadDataFromNetwork() throws Exception {
-        return mClient.getRepositories(mParams.getRepositoryName());
+        return mClient.getRepositories(mParams.getRepositoryName(), Parameters.ACCESS_TOKEN);
     }
 
     public void setParams(LoadRepositoriesRequestParams Params) {

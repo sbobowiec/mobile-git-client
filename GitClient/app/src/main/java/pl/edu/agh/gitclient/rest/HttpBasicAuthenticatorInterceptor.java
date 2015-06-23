@@ -15,6 +15,7 @@ public class HttpBasicAuthenticatorInterceptor implements ClientHttpRequestInter
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] data, ClientHttpRequestExecution execution) throws IOException {
 //        request.getHeaders().add("Connection", "Close");
+        request.getHeaders().add("Authorization", "token OAUTH-TOKEN");
         request.getHeaders().add("Accept-Language", "en-US,en;q=0.8");
 
         ClientHttpResponse response = execution.execute(request, data);

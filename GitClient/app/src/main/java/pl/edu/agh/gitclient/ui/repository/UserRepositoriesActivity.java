@@ -27,6 +27,7 @@ import java.util.List;
 import pl.edu.agh.gitclient.R;
 import pl.edu.agh.gitclient.dto.RepositoryDTO;
 import pl.edu.agh.gitclient.model.Repository;
+import pl.edu.agh.gitclient.service.UserRepoService;
 import pl.edu.agh.gitclient.ui.common.BaseActivity;
 import pl.edu.agh.gitclient.ui.config.ConfigActivity_;
 import pl.edu.agh.gitclient.util.DtoConverter;
@@ -38,6 +39,9 @@ public class UserRepositoriesActivity extends BaseActivity {
 
     @ViewById(R.id.repositories)
     ListView mRepositories;
+
+    @Bean
+    UserRepoService mUserRepoService;
 
     @Bean
     RepositoryAdapter mAdapter;
@@ -151,6 +155,8 @@ public class UserRepositoriesActivity extends BaseActivity {
             }
             mAdapter.setRows(repositories);
             showRepositoriesList();
+
+            mUserRepoService.configure(mUserName, repositories);
         }
     }
 

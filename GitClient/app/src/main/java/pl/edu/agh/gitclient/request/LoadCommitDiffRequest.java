@@ -2,6 +2,7 @@ package pl.edu.agh.gitclient.request;
 
 import com.octo.android.robospice.request.SpiceRequest;
 
+import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.request.param.LoadCommitDiffRequestParams;
 import pl.edu.agh.gitclient.rest.GitHubRestClient;
 
@@ -19,7 +20,7 @@ public class LoadCommitDiffRequest extends SpiceRequest<String> {
     @Override
     public String loadDataFromNetwork() throws Exception {
         return mClient.getCommitDiff(mParams.getUserName(), mParams.getRepoName(),
-                mParams.getSha1(), mParams.getSha2());
+                mParams.getSha1(), mParams.getSha2(), Parameters.ACCESS_TOKEN);
     }
 
     public void setParams(LoadCommitDiffRequestParams params) {
