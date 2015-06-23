@@ -4,9 +4,12 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import org.androidannotations.annotations.Background;
@@ -129,52 +132,64 @@ public class CommitNotificationService extends Service {
         }
     }
 
+    private void sendNotification() {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.git_logo)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, ConfigActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(ConfigActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+
 //    private void sendNotification() {
-//        NotificationManager notificationManager = (NotificationManager) context
-//                .getSystemService(Context.NOTIFICATION_SERVICE);
-//        Notification notification = new Notification(icon, message, when);
-//
-//        Intent notificationIntent = new Intent(context, HomeActivity.class);
-//
-//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        Intent intent = new Intent(this, ConfigActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 //                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //
-//        PendingIntent intent = PendingIntent.getActivity(context, 0,
-//                notificationIntent, 0);
 //
-//        notification.setLatestEventInfo(context, title, message, intent);
-//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//        notificationManager.notify(0, notification);
+//        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//
+//        // build notification
+//        // the addAction re-use the same intent to keep the example short
+//        Notification n  = new Notification.Builder(this)
+//                .setContentTitle("New commit")
+//                .setContentText("Someone added new code to repository")
+//                .setSmallIcon(R.drawable.git_logo)
+//                .setContentIntent(pIntent)
+//                .setAutoCancel(true)
+////                .addAction(R.drawable.ic_action_about, "Call", pIntent)
+////                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
+////                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
+//                .build();
+//
+//        n.flags |= Notification.FLAG_AUTO_CANCEL;
+//
+//        NotificationManager notificationManager =
+//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+//        notificationManager.notify(0, n);
 //    }
-
-    private void sendNotification() {
-        Intent intent = new Intent(this, ConfigActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        // build notification
-        // the addAction re-use the same intent to keep the example short
-        Notification n  = new Notification.Builder(this)
-                .setContentTitle("New commit")
-                .setContentText("Someone added new code to repository")
-                .setSmallIcon(R.drawable.git_logo)
-                .setContentIntent(pIntent)
-                .setAutoCancel(true)
-//                .addAction(R.drawable.ic_action_about, "Call", pIntent)
-//                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
-//                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
-                .build();
-
-        n.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, n);
-    }
 
     private static class CommitDateComparator implements Comparator<Commit> {
         @Override
