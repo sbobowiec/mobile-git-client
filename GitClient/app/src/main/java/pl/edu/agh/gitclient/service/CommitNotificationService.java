@@ -111,7 +111,6 @@ public class CommitNotificationService extends Service {
                                         mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                     } else {
                                         if (!lastCommitDate.equals(currentRepoLastCommitDate)) {
-                                            // send notification
                                             sendNotification();
                                             Log.i(LOG_TAG, "NOTIFICATION SEND");
                                             mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
