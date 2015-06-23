@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/git_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:src="@drawable/git_logo" />
+
+        <RelativeLayout
+            android:id="@+id/info_section_container"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/git_logo"
+            android:layout_marginTop="15dp"
+            android:background="@color/section_default_background_color">
+
+            <ImageView
+                android:id="@+id/info_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_action_about" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_info"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/info_icon"
+                android:layout_marginLeft="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/info_section_container">
+
+            <RelativeLayout
+                android:id="@+id/message_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/message_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/message" />
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/message_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="Test" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/date_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/date" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/date_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="16-01-2015, 20:30" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sha_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/sha_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/sha" />
+
+                <TextView
+                    android:id="@+id/sha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/sha_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="sdfsdf7sdgsdbsdg7dgfgdf8dfg8" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/committer_section_container"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/info_container"
+            android:layout_marginTop="15dp"
+            android:background="@color/section_default_background_color">
+
+            <ImageView
+                android:id="@+id/committer_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_action_person" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/committer_info"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/committer_icon"
+                android:layout_marginLeft="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/committer_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/committer_section_container">
+
+            <RelativeLayout
+                android:id="@+id/committer_name_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/committer_name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/name" />
+
+                <TextView
+                    android:id="@+id/committer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/committer_name_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="Szymon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/committer_email_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/committer_email_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/email" />
+
+                <TextView
+                    android:id="@+id/committer_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/committer_email_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="sb@gmail.com" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/committer_login_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/committer_login_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/login" />
+
+                <TextView
+                    android:id="@+id/committer_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/committer_login_label"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="BOBO" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/show_code_changes_button"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/committer_container"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/code_changes"
+            android:textSize="20sp"
+            android:textColor="@color/button_font_color"
+            android:background="@drawable/button_selector" />
+
+    </RelativeLayout>
+
+</ScrollView>

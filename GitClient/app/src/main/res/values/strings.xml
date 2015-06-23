@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">GitClient</string>
+
+    <string name="enter_username">Enter GitHub username:</string>
+    <string name="save">Save</string>
+
+    <string name="user_repositories">user repositories</string>
+
+    <string name="set_username">Set username</string>
+    <string name="change_username_desc">Change username</string>
+
+    <string name="general_info">General info</string>
+    <string name="name">Name:</string>
+    <string name="email">E-mail:</string>
+    <string name="login">Login:</string>
+    <string name="owner">Owner:</string>
+    <string name="created_at">Created at:</string>
+    <string name="updated_at">Updated at:</string>
+    <string name="language">Language:</string>
+    <string name="watchers">Watchers:</string>
+
+    <string name="commits">Commits</string>
+    <string name="show_commits">Show commits</string>
+
+    <string name="committer_info">Committer info</string>
+    <string name="message">Message:</string>
+    <string name="date">Date:</string>
+    <string name="sha">SHA:</string>
+    <string name="code_changes">Code changes</string>
+
+</resources>
