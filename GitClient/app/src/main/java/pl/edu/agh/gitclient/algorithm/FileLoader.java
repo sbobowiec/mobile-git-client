@@ -8,12 +8,13 @@ import java.util.List;
 
 public class FileLoader {
 
+
     public static List<String> LoadFile(String path){
         return LoadFile(new File(path));
     }
 
     public static List<String> LoadFile(File file){
-        List<String> fileContent = new ArrayList<>();
+        List<String> fileContent = new ArrayList<String>();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -38,5 +39,4 @@ public class FileLoader {
 
         return  fileContent;
     }
-
 }

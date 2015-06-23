@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileElement {
-
     private int startLine;
     private int endLine;
     private ElementType elementType;
@@ -21,10 +20,11 @@ public class FileElement {
             this.name = name;
         }
 
+
         this.startLine = startLine;
         this.endLine = endLine;
 
-        childs = new ArrayList<>();
+        childs = new ArrayList<FileElement>();
     }
 
     public int getStartLine() {
@@ -35,11 +35,44 @@ public class FileElement {
         return endLine;
     }
 
-    private boolean containLine(int lineNumber){
+    public boolean containLine(int lineNumber){
         if (lineNumber >= startLine && lineNumber <= endLine){
             return true;
         }
         return false;
+    }
+
+    /*public FileElement getElementsPath(int lineNumber){
+        if(containLine(lineNumber)){
+            for(int i = 0; i < childs.size(); i++){
+                if(childs.get(i).containLine(lineNumber)){
+                    return childs.get(i).getElementByLine(lineNumber);
+                }
+            }
+
+            return this;
+        }
+
+        return null;
+    }*/
+
+    public List<FileElement> getElementsPath(int lineNumber){
+
+
+        List<FileElement> path =  new ArrayList<FileElement>();
+        if(containLine(lineNumber)){
+            for(int i = 0; i < childs.size(); i++){
+                if(childs.get(i).containLine(lineNumber)){
+                    path = childs.get(i).getElementsPath(lineNumber);
+                    break;
+                }
+            }
+
+            path.add(0, this);
+            return path;
+        }
+
+        return null;
     }
 
     public String getLinePath(int lineNumber){
@@ -94,9 +127,18 @@ public class FileElement {
                 }
             }
 
+
+
             return true;
         }
         return false;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ElementType getElementType() {
+        return elementType;
+    }
 }

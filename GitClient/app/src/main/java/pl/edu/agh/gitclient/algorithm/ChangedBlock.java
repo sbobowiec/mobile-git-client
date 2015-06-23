@@ -16,7 +16,7 @@ public class ChangedBlock {
         this.start = lineNumber;
         this.end = lineNumber;
 
-        this.content = new ArrayList<>();
+        this.content = new ArrayList<String>();
 
         this.content.add(content);
     }
@@ -42,6 +42,7 @@ public class ChangedBlock {
     }
 
     public void AddContent(ChangedBlock block){
+
         if(block.getContent().size() > 0){
             this.content.add(block.getContent().get(0));
         }

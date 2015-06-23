@@ -4,21 +4,22 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.gitclient.R;
+import pl.edu.agh.gitclient.algorithm.ChangeStats;
 import pl.edu.agh.gitclient.algorithm.ChangedBlock;
 import pl.edu.agh.gitclient.algorithm.CodeLineChecker;
 import pl.edu.agh.gitclient.model.Commit;
@@ -30,8 +31,11 @@ public class CodeChangesActivity extends BaseActivity {
 
     private static final String LOG_TAG = CodeChangesActivity.class.getSimpleName();
 
-    @ViewById(R.id.code_changes)
-    TextView mCodeChanges;
+    @ViewById(R.id.code_changes_list)
+    ListView mCodeChangesListView;
+
+    @Bean
+    CodeChangesAdapter mAdapter;
 
     @Extra
     Commit mCommit;
@@ -46,7 +50,8 @@ public class CodeChangesActivity extends BaseActivity {
         mActionBar.setLogo(R.drawable.default_back_logo);
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setTitle("Code changes");
-
+        mAdapter.init(this);
+        mCodeChangesListView.setAdapter(mAdapter);
         loadData();
     }
 
@@ -92,13 +97,9 @@ public class CodeChangesActivity extends BaseActivity {
     private void showCodeChanges(String code) {
         String[] codeLines = code.split("\\n");
         CodeLineChecker codeLineChecker = new CodeLineChecker(Arrays.asList(codeLines));
-        List<ChangedBlock> changes = codeLineChecker.checkLines();
+        List<ChangeStats> stats = codeLineChecker.CalculateStats();
 
-        String result = "";
-        for (ChangedBlock block : changes) {
-            result += block + "\n";
-        }
-        mCodeChanges.setText(result);
+        mAdapter.setRows(stats.get(0).getChilds());
     }
 
     private class LoadCommitDiffRequestListener implements RequestListener<String> {
@@ -112,7 +113,6 @@ public class CodeChangesActivity extends BaseActivity {
         public void onRequestSuccess(String response) {
             mProgress.dismiss();
             if (response != null) {
-//                mCodeChanges.setText(response);
                 showCodeChanges(response);
             }
         }

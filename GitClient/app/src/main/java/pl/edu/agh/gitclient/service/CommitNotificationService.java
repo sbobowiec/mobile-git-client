@@ -69,7 +69,7 @@ public class CommitNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mRunning = new AtomicBoolean(true);
-        sendRequests();
+//        sendRequests();
         return START_STICKY;
     }
 
