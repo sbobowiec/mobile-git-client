@@ -29,7 +29,7 @@ public class CommitNotificationService extends Service {
 
     private static final String LOG_TAG = CommitNotificationService.class.getSimpleName();
 
-    private static final int CYCLE_TIME = 30000;    // in ms
+    private static final int CYCLE_TIME = 10000;    // in ms
 
     @RestService
     ApiGitHubRestClient mRestClient;
