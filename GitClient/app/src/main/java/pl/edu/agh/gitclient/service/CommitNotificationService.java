@@ -1,5 +1,8 @@
 package pl.edu.agh.gitclient.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -19,10 +22,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import pl.edu.agh.gitclient.R;
 import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.dto.CommitDTO;
 import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
+import pl.edu.agh.gitclient.ui.commit.CommitListActivity;
+import pl.edu.agh.gitclient.ui.config.ConfigActivity;
 import pl.edu.agh.gitclient.util.DtoConverter;
 
 @EService
@@ -106,6 +112,7 @@ public class CommitNotificationService extends Service {
                                     } else {
                                         if (!lastCommitDate.equals(currentRepoLastCommitDate)) {
                                             // send notification
+                                            sendNotification();
                                             Log.i(LOG_TAG, "NOTIFICATION SEND");
                                             mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                         }
@@ -123,32 +130,28 @@ public class CommitNotificationService extends Service {
         }
     }
 
-//    @Background
-//    public void sendRequests() {
-//        while (mRunning.get() == true) {
-//            try {
-//                Thread.sleep(CYCLE_TIME);
-//                List<String> observableUserRepos = mUsersRepoMap.get(mObservableUserName);
-//                if (observableUserRepos != null) {
-//                    for (String repoName : observableUserRepos) {
-//                        try {
-//                            CommitDTO[] commitDTOs = mRestClient.getCommits(mObservableUserName, repoName);
-//                            if (commitDTOs != null) {
-//                                List<Commit> commits = DtoConverter.convertCommitDTOs(commitDTOs);
-////                                CommitDataContainer.loadNewCommits(repoName, commits);
-//                                Date lastCommitDate = CommitDataContainer.getLastCommitDate(repoName);
-//                                Log.i(LOG_TAG, "Repo name = " + repoName + ", last commit date = " + lastCommitDate);
-//                            }
-//                        } catch (Exception ex) {
-//                            Log.e(LOG_TAG, ex.getMessage());
-//                        }
-//                    }
-//                }
-//            } catch (InterruptedException e) {
-//                Log.e(LOG_TAG, e.getMessage());
-//            }
-//        }
-//    }
+    private void sendNotification() {
+        Intent intent = new Intent(this, ConfigActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        // build notification
+        // the addAction re-use the same intent to keep the example short
+        Notification n  = new Notification.Builder(this)
+                .setContentTitle("New commit")
+                .setContentText("Someone added new code to repository")
+                .setSmallIcon(R.drawable.git_logo)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+//                .addAction(R.drawable.icon, "Call", pIntent)
+//                .addAction(R.drawable.icon, "More", pIntent)
+//                .addAction(R.drawable.icon, "And more", pIntent)
+                .build();
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, n);
+    }
 
     private static class CommitDateComparator implements Comparator<Commit> {
         @Override
