@@ -129,8 +129,30 @@ public class CommitNotificationService extends Service {
         }
     }
 
+//    private void sendNotification() {
+//        NotificationManager notificationManager = (NotificationManager) context
+//                .getSystemService(Context.NOTIFICATION_SERVICE);
+//        Notification notification = new Notification(icon, message, when);
+//
+//        Intent notificationIntent = new Intent(context, HomeActivity.class);
+//
+//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+//                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//
+//        PendingIntent intent = PendingIntent.getActivity(context, 0,
+//                notificationIntent, 0);
+//
+//        notification.setLatestEventInfo(context, title, message, intent);
+//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+//        notificationManager.notify(0, notification);
+//    }
+
     private void sendNotification() {
         Intent intent = new Intent(this, ConfigActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // build notification
@@ -141,10 +163,12 @@ public class CommitNotificationService extends Service {
                 .setSmallIcon(R.drawable.git_logo)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_action_about, "Call", pIntent)
-                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
-                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
+//                .addAction(R.drawable.ic_action_about, "Call", pIntent)
+//                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
+//                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
                 .build();
+
+        n.flags |= Notification.FLAG_AUTO_CANCEL;
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
