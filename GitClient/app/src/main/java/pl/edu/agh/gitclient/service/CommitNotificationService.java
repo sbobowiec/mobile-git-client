@@ -1,6 +1,5 @@
 package pl.edu.agh.gitclient.service;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -30,8 +29,6 @@ import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.dto.CommitDTO;
 import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
-import pl.edu.agh.gitclient.ui.commit.CommitListActivity;
-import pl.edu.agh.gitclient.ui.config.ConfigActivity;
 import pl.edu.agh.gitclient.ui.config.ConfigActivity_;
 import pl.edu.agh.gitclient.util.DtoConverter;
 
@@ -69,7 +66,7 @@ public class CommitNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mRunning = new AtomicBoolean(true);
-//        sendRequests();
+        sendRequests();
         return START_STICKY;
     }
 
@@ -115,7 +112,10 @@ public class CommitNotificationService extends Service {
                                         mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                     } else {
                                         if (!lastCommitDate.equals(currentRepoLastCommitDate)) {
-                                            sendNotification();
+                                            String title = repoName + " - new commit";
+                                            String content = "Added by: " + mObservableUserName
+                                                    + "\nCommit date: " + currentRepoLastCommitDate;
+                                            sendNotification(title, content);
                                             Log.i(LOG_TAG, "NOTIFICATION SEND");
                                             mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                         }
@@ -133,12 +133,12 @@ public class CommitNotificationService extends Service {
         }
     }
 
-    private void sendNotification() {
+    private void sendNotification(String title, String content) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.git_logo)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle(title)
+                        .setContentText(content);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ConfigActivity_.class);
 
@@ -162,35 +162,6 @@ public class CommitNotificationService extends Service {
         // mId allows you to update the notification later on.
         mNotificationManager.notify(0, mBuilder.build());
     }
-
-//    private void sendNotification() {
-//        Intent intent = new Intent(this, ConfigActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//
-//
-//        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//
-//        // build notification
-//        // the addAction re-use the same intent to keep the example short
-//        Notification n  = new Notification.Builder(this)
-//                .setContentTitle("New commit")
-//                .setContentText("Someone added new code to repository")
-//                .setSmallIcon(R.drawable.git_logo)
-//                .setContentIntent(pIntent)
-//                .setAutoCancel(true)
-////                .addAction(R.drawable.ic_action_about, "Call", pIntent)
-////                .addAction(R.drawable.ic_action_accounts, "More", pIntent)
-////                .addAction(R.drawable.ic_action_add_to_queue, "And more", pIntent)
-//                .build();
-//
-//        n.flags |= Notification.FLAG_AUTO_CANCEL;
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0, n);
-//    }
 
     private static class CommitDateComparator implements Comparator<Commit> {
         @Override
