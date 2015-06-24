@@ -28,4 +28,6 @@
     <string name="sha">SHA:</string>
     <string name="code_changes">Code changes</string>
 
+    <string name="no_changes">No changes prior to previous version</string>
+
 </resources>

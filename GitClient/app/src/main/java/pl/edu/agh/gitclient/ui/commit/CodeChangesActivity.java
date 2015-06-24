@@ -4,7 +4,9 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -20,7 +22,6 @@ import java.util.List;
 
 import pl.edu.agh.gitclient.R;
 import pl.edu.agh.gitclient.algorithm.ChangeStats;
-import pl.edu.agh.gitclient.algorithm.ChangedBlock;
 import pl.edu.agh.gitclient.algorithm.CodeLineChecker;
 import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.request.param.LoadCommitDiffRequestParams;
@@ -32,7 +33,10 @@ public class CodeChangesActivity extends BaseActivity {
     private static final String LOG_TAG = CodeChangesActivity.class.getSimpleName();
 
     @ViewById(R.id.code_changes_list)
-    ListView mCodeChangesListView;
+    ListView mCodeChanges;
+
+    @ViewById(R.id.no_changes)
+    TextView mNoChanges;
 
     @Bean
     CodeChangesAdapter mAdapter;
@@ -51,7 +55,7 @@ public class CodeChangesActivity extends BaseActivity {
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setTitle("Code changes");
         mAdapter.init(this);
-        mCodeChangesListView.setAdapter(mAdapter);
+        mCodeChanges.setAdapter(mAdapter);
         loadData();
     }
 
@@ -99,7 +103,21 @@ public class CodeChangesActivity extends BaseActivity {
         CodeLineChecker codeLineChecker = new CodeLineChecker(Arrays.asList(codeLines));
         List<ChangeStats> stats = codeLineChecker.CalculateStats();
 
-        mAdapter.setRows(stats.get(0).getChilds());
+        if (stats != null && stats.size() > 0) {
+            ChangeStats root = stats.get(0);
+            List<ChangeStats> childNodes = root.getChilds();
+            if (childNodes != null && childNodes.size() > 0) {
+                mNoChanges.setVisibility(View.GONE);
+                mCodeChanges.setVisibility(View.VISIBLE);
+                mAdapter.setRows(stats.get(0).getChilds());
+            } else {
+                mNoChanges.setVisibility(View.VISIBLE);
+                mCodeChanges.setVisibility(View.GONE);
+            }
+        } else {
+            mNoChanges.setVisibility(View.VISIBLE);
+            mCodeChanges.setVisibility(View.GONE);
+        }
     }
 
     private class LoadCommitDiffRequestListener implements RequestListener<String> {
