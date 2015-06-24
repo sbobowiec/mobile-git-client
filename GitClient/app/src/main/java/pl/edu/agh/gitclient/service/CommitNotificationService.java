@@ -139,6 +139,14 @@ public class CommitNotificationService extends Service {
                         .setSmallIcon(R.drawable.git_logo)
                         .setContentTitle(title)
                         .setContentText(content);
+
+        NotificationCompat.InboxStyle inboxStyle =
+                new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle("Commit details:");
+        inboxStyle.addLine("Added by: " + mObservableUserName);
+        inboxStyle.addLine("Commit date: ");
+        mBuilder.setStyle(inboxStyle);
+        
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ConfigActivity_.class);
 
