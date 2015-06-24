@@ -29,6 +29,7 @@ import pl.edu.agh.gitclient.config.Parameters;
 import pl.edu.agh.gitclient.dto.CommitDTO;
 import pl.edu.agh.gitclient.model.Commit;
 import pl.edu.agh.gitclient.rest.ApiGitHubRestClient;
+import pl.edu.agh.gitclient.ui.commit.CodeChangesActivity_;
 import pl.edu.agh.gitclient.ui.config.ConfigActivity_;
 import pl.edu.agh.gitclient.util.DtoConverter;
 
@@ -104,6 +105,7 @@ public class CommitNotificationService extends Service {
                                 List<Commit> commits = DtoConverter.convertCommitDTOs(commitDTOs);
                                 if (commits != null && commits.size() > 0) {
                                     Collections.sort(commits, new CommitDateComparator());
+                                    Commit commit = commits.get(commits.size() - 1);
                                     Date currentRepoLastCommitDate = commits.get(commits.size() - 1).getCommitDate();
                                     Log.i(LOG_TAG, "Repo name = " + repoName + ", last commit date = " + currentRepoLastCommitDate);
 
@@ -112,11 +114,7 @@ public class CommitNotificationService extends Service {
                                         mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                     } else {
                                         if (!lastCommitDate.equals(currentRepoLastCommitDate)) {
-                                            String title = repoName + " - new commit";
-                                            String content = "Added by: " + mObservableUserName
-                                                    + "\nCommit date: " + currentRepoLastCommitDate;
-
-                                            sendNotification(repoName, mObservableUserName, currentRepoLastCommitDate);
+                                            sendNotification(repoName, mObservableUserName, commit, currentRepoLastCommitDate);
                                             Log.i(LOG_TAG, "NOTIFICATION SEND");
                                             mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                         }
@@ -134,7 +132,7 @@ public class CommitNotificationService extends Service {
         }
     }
 
-    private void sendNotification(String repoName, String userName, Date commitDate) {
+    private void sendNotification(String repoName, String userName, Commit commit,  Date commitDate) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.git_logo)
@@ -150,7 +148,9 @@ public class CommitNotificationService extends Service {
         mBuilder.setStyle(inboxStyle);
 
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, ConfigActivity_.class);
+//        Intent resultIntent = new Intent(this, ConfigActivity_.class);
+        Intent resultIntent = new Intent(this, CodeChangesActivity_.class);
+        resultIntent.putExtra("commit", commit);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
