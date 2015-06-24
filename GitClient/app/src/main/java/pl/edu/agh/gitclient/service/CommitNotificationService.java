@@ -115,7 +115,8 @@ public class CommitNotificationService extends Service {
                                             String title = repoName + " - new commit";
                                             String content = "Added by: " + mObservableUserName
                                                     + "\nCommit date: " + currentRepoLastCommitDate;
-                                            sendNotification(title, content);
+
+                                            sendNotification(repoName, mObservableUserName, currentRepoLastCommitDate);
                                             Log.i(LOG_TAG, "NOTIFICATION SEND");
                                             mRepoCommitsDateMap.put(repoName, currentRepoLastCommitDate);
                                         }
@@ -133,20 +134,21 @@ public class CommitNotificationService extends Service {
         }
     }
 
-    private void sendNotification(String title, String content) {
+    private void sendNotification(String repoName, String userName, Date commitDate) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.git_logo)
-                        .setContentTitle(title)
-                        .setContentText(content);
+                        .setContentTitle("Mobile git client")
+                        .setContentText("New commit");
 
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("Commit details:");
-        inboxStyle.addLine("Added by: " + mObservableUserName);
-        inboxStyle.addLine("Commit date: ");
+        inboxStyle.addLine("Repository: " + repoName);
+        inboxStyle.addLine("Added by: " + userName);
+        inboxStyle.addLine("Commit date: " + commitDate);
         mBuilder.setStyle(inboxStyle);
-        
+
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ConfigActivity_.class);
 
