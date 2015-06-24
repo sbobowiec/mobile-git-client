@@ -29,10 +29,22 @@ public class CodeChangeItemView extends LinearLayout {
             return;
         }
 
+        if (mContainer.getChildCount() > 0) {
+            mContainer.removeAllViews();
+        }
+
         matchViewToElementType(changeStats);
         List<ChangeStats> childs = changeStats.getChilds();
         for (ChangeStats childChangeStat : childs) {
-            bind(childChangeStat);
+            bindChild(childChangeStat);
+        }
+    }
+
+    private void bindChild(ChangeStats changeStats) {
+        matchViewToElementType(changeStats);
+        List<ChangeStats> childs = changeStats.getChilds();
+        for (ChangeStats childChangeStat : childs) {
+            bindChild(childChangeStat);
         }
     }
 
