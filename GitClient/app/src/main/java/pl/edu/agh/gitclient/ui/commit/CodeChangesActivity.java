@@ -85,13 +85,13 @@ public class CodeChangesActivity extends BaseActivity {
         }
         String userName = mPrefs.userName().get();
         String repoName = mCommit.getRepoName();
-        String sha1 = mCommit.getSha();
-        String sha2 = mCommit.getPrevCommitSha();
+        String sha = mCommit.getSha();
+        String prevSha = mCommit.getPrevCommitSha();
 
         if (!"".equals(userName) && !"".equals(repoName) &&
-                !"".equals(sha1) && !"".equals(sha2)) {
+                !"".equals(sha) && !"".equals(prevSha)) {
             LoadCommitDiffRequestParams params =
-                    new LoadCommitDiffRequestParams(userName, repoName, sha1, sha2);
+                    new LoadCommitDiffRequestParams(userName, repoName, prevSha, sha);
 
             mProgress = ProgressDialog.show(this, "", "Loading...", true);
             mApi.loadCommitDiff(params, new LoadCommitDiffRequestListener());

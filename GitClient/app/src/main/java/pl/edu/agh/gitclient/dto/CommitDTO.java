@@ -15,12 +15,22 @@ public class CommitDTO {
     @JsonProperty(value = "author")
     private OwnerDTO author;
 
+    @JsonProperty(value = "parents")
+    private ParentCommitInfoDTO[] parentCommitInfo;
+
     public CommitDTO() {
         // needed by json converter
     }
 
     public String getSha() {
         return sha;
+    }
+
+    public String getPrevSha() {
+        if (parentCommitInfo != null && parentCommitInfo.length > 0) {
+            return parentCommitInfo[0].getSha();
+        }
+        return null;
     }
 
     public CommitInfoDTO getCommitInfo() {

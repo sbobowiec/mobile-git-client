@@ -26,7 +26,8 @@ public class Commit implements Parcelable {
 
     public Commit(CommitDTO commitDTO) {
         sha = commitDTO.getSha();
-        prevCommitSha = "";
+//        prevCommitSha = "";
+        prevCommitSha = commitDTO.getPrevSha();
         CommitInfoDTO commitInfoDTO = commitDTO.getCommitInfo();
         if (commitInfoDTO != null) {
             message = commitInfoDTO.getMessage();
@@ -89,10 +90,6 @@ public class Commit implements Parcelable {
 
     public String getPrevCommitSha() {
         return prevCommitSha;
-    }
-
-    public void setPrevCommitSha(String prevCommitSha) {
-        this.prevCommitSha = prevCommitSha;
     }
 
     public String getMessage() {

@@ -31,15 +31,9 @@ public class CommitAdapter extends BaseAdapter {
 
         for (int i = 0; i < commits.size(); i++) {
             Commit currCommit = commits.get(i);
-            if (i > 0) {
-                Commit prevCommit = commits.get(i - 1);
-                currCommit.setPrevCommitSha(prevCommit.getSha());
-            }
             currCommit.setRepoName(repoName);
             mRows.add(currCommit);
         }
-
-//        mRows.addAll(commits);
         notifyDataSetChanged();
     }
 
