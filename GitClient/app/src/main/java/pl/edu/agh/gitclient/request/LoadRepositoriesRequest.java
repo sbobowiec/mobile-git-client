@@ -15,6 +15,7 @@ public class LoadRepositoriesRequest extends SpiceRequest<RepositoryDTO[]> {
 
     public LoadRepositoriesRequest(ApiGitHubRestClient client) {
         super(RepositoryDTO[].class);
+
         mClient = client;
     }
 

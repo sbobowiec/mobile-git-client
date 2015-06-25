@@ -85,7 +85,6 @@ public class CommitListActivity extends BaseActivity {
 
     private void loadData() {
         if (mUserName == null || mRepoName == null) {
-//            showErrorView("User not specified");
             return;
         }
         mProgress = ProgressDialog.show(this, "", "Loading commits...", true);

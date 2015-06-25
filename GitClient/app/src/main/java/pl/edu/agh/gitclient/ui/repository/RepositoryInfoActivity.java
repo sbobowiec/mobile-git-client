@@ -82,22 +82,22 @@ public class RepositoryInfoActivity extends BaseActivity {
 
         Owner owner = mRepository.getOwner();
         String ownerName = "";
-        if (owner != null) {
+        if (owner != null)
             ownerName = owner.getLogin();
-        }
+
 
         Date createdAt = mRepository.getCreatedAt();
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
         String createdAtTxt = "";
-        if (createdAt != null) {
+        if (createdAt != null)
             createdAtTxt = df.format(createdAt);
-        }
+
 
         Date updatedAt = mRepository.getUpdatedAt();
         String updatedAtTxt = "";
-        if (updatedAt != null) {
+        if (updatedAt != null)
             updatedAtTxt = df.format(updatedAt);
-        }
+
 
         String language = mRepository.getLanguage();
         int watchersCount = mRepository.getWatchersCount();

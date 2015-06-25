@@ -14,6 +14,7 @@ public class LoadCommitDiffRequest extends SpiceRequest<String> {
 
     public LoadCommitDiffRequest(GitHubRestClient client) {
         super(String.class);
+
         mClient = client;
     }
 

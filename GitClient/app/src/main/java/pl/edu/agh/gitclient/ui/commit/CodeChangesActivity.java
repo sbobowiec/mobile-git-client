@@ -90,18 +90,23 @@ public class CodeChangesActivity extends BaseActivity {
 
         if (!"".equals(userName) && !"".equals(repoName) &&
                 !"".equals(sha) && !"".equals(prevSha)) {
+            Log.i(LOG_TAG, "Prepare request object");
             LoadCommitDiffRequestParams params =
                     new LoadCommitDiffRequestParams(userName, repoName, prevSha, sha);
-
             mProgress = ProgressDialog.show(this, "", "Loading...", true);
             mApi.loadCommitDiff(params, new LoadCommitDiffRequestListener());
+
+            Log.i(LOG_TAG, "Load code diff");
         }
     }
 
     private void showCodeChanges(String code) {
+        Log.i(LOG_TAG, "Parse diff");
         String[] codeLines = code.split("\\n");
         CodeLineChecker codeLineChecker = new CodeLineChecker(Arrays.asList(codeLines));
         List<ChangeStats> stats = codeLineChecker.CalculateStats();
+
+        Log.i(LOG_TAG, "Get code changes");
 
         if (stats != null && stats.size() > 0) {
             ChangeStats root = stats.get(0);
@@ -118,9 +123,11 @@ public class CodeChangesActivity extends BaseActivity {
             mNoChanges.setVisibility(View.VISIBLE);
             mCodeChanges.setVisibility(View.GONE);
         }
+        Log.i(LOG_TAG, "Show code changes");
     }
 
     private class LoadCommitDiffRequestListener implements RequestListener<String> {
+
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Log.e(LOG_TAG, spiceException.getMessage());
@@ -134,6 +141,7 @@ public class CodeChangesActivity extends BaseActivity {
                 showCodeChanges(response);
             }
         }
+
     }
 
 }

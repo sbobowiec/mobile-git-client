@@ -15,6 +15,7 @@ public class LoadCommitsRequest extends SpiceRequest<CommitDTO[]> {
 
     public LoadCommitsRequest(ApiGitHubRestClient client) {
         super(CommitDTO[].class);
+
         mClient = client;
     }
 

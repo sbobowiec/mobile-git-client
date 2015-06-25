@@ -2,6 +2,7 @@ package pl.edu.agh.gitclient.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.Date;
 
@@ -10,6 +11,8 @@ import pl.edu.agh.gitclient.dto.CommitInfoDTO;
 import pl.edu.agh.gitclient.dto.OwnerDTO;
 
 public class Commit implements Parcelable {
+
+    private static final String LOG_TAG = Commit.class.getSimpleName();
 
     private String sha;
     private String prevCommitSha;
@@ -26,7 +29,6 @@ public class Commit implements Parcelable {
 
     public Commit(CommitDTO commitDTO) {
         sha = commitDTO.getSha();
-//        prevCommitSha = "";
         prevCommitSha = commitDTO.getPrevSha();
         CommitInfoDTO commitInfoDTO = commitDTO.getCommitInfo();
         if (commitInfoDTO != null) {
@@ -40,6 +42,7 @@ public class Commit implements Parcelable {
             committerLogin = authorDTO.getLogin();
         }
         repoName = "";
+        Log.i(LOG_TAG, "Commit object created.");
     }
 
     public Commit(Parcel pc) {

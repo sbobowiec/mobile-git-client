@@ -2,15 +2,19 @@ package pl.edu.agh.gitclient.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import pl.edu.agh.gitclient.dto.OwnerDTO;
 
 public class Owner implements Parcelable {
 
+    private static final String LOG_TAG = Owner.class.getSimpleName();
+
     private String login;
 
     public Owner(OwnerDTO ownerDTO) {
         login = ownerDTO.getLogin();
+        Log.i(LOG_TAG, "Owner object created.");
     }
 
     public Owner(Parcel pc) {

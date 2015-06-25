@@ -53,7 +53,6 @@ public class SingleCodeChangeItemView extends LinearLayout {
                 prefix += "OTHER: ";
                 break;
         }
-
         mName.setText(prefix + stats.getName());
         mInsertions.setText("\t\t\t\t+ insertions: " + stats.getLinesAdded());
         mDeletions.setText("\t\t\t\t- deletions: " + stats.getLinesRemoved());

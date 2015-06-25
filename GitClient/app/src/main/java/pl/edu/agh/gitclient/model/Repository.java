@@ -2,12 +2,15 @@ package pl.edu.agh.gitclient.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.Date;
 
 import pl.edu.agh.gitclient.dto.RepositoryDTO;
 
 public class Repository implements Parcelable {
+
+    private static final String LOG_TAG = Repository.class.getSimpleName();
 
     private String name;
 
@@ -27,6 +30,7 @@ public class Repository implements Parcelable {
         updatedAt = repositoryDTO.getUpdatedAt();
         language = repositoryDTO.getLanguage();
         watchersCount = repositoryDTO.getWatchersCount();
+        Log.i(LOG_TAG, "Repository object created.");
     }
 
     public Repository(Parcel pc) {
