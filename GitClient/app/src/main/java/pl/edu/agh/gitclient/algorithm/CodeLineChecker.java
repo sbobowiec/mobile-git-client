@@ -318,7 +318,7 @@ public class CodeLineChecker {
 
             String name = recognizeName(line, ElementType.CONSTRUCTOR);
 
-            if(name.equals(className)){
+            if(name.equals(className) || className.startsWith(name.trim() + " ") || className.startsWith(" " + name.trim() + " ")){
                 return ElementType.CONSTRUCTOR;
             }
             return ElementType.METHOD;
